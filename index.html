@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Desa Kamelanta</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #4b9aea 0%, #0b69bc 100%);
+            color: white;
+            padding: 1rem;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);  
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            position: -50px;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .logo-text {
+            text-align: left;
+            margin-left: 10px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            
+        }
+
+        /* Menu untuk desktop */
+        .desktop-menu {
+            display: none;
+        }
+
+        .desktop-menu ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .desktop-menu ul li {
+            margin-left: 15px;
+        }
+
+        .desktop-menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .desktop-menu ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Menu untuk mobile */
+        .mobile-menu-btn {
+            display: block;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 70%;
+            height: 100%;
+            background: #4b9aea;
+            z-index: 1000;
+            transition: left 0.3s ease;
+            padding: 2rem;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .mobile-menu ul li {
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: block;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('background.jpg') no-repeat center center/cover;
+            height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 800px;
+        }
+
+        .hero-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .btn {
+            display: inline-block;
+            background: #4b9aea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: #4b9aea;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #4b9aea;
+            position: relative;
+            font-size: 1.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: #4b9aea;
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about {
+            background-color: white;
+            height: auto;
+            padding-top: 120px;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-content h3 {
+            color: #4b9aea;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .about-content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* News Section */
+        .news {
+            background-color: #f9f9f9;
+            height: auto;
+            padding-top: 120px;
+        }
+
+        .news-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-image {
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .news-card:hover .news-image img {
+            transform: scale(1.1);
+        }
+
+        .news-content {
+            padding: 15px;
+        }
+
+        .news-date {
+            color: #777;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .news-content h3 {
+            color: #4b9aea;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .news-content p {
+            font-size: 0.9rem;
+        }
+
+        /* Potensi Section */
+        .potensi {
+            background-color: white;
+            height: auto;
+            padding-top: 120px;
+        }
+
+        .potensi-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .potensi-card {
+            text-align: center;
+            padding: 20px 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .potensi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .potensi-icon {
+            font-size: 2.5rem;
+            color: #4b9aea;
+            margin-bottom: 15px;
+        }
+
+        .potensi-card h3 {
+            color: #4b9aea;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .potensi-card p {
+            font-size: 0.9rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background-color: #f9f9f9;
+            height: auto;
+            padding-top: 120px;
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .gallery-item {
+            height: 150px;
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: white;
+            padding-top: 120px;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .contact-info {
+            padding-right: 0;
+        }
+
+        .contact-info h3 {
+            color: #4b9aea;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .contact-detail-1 {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: #4b9aea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .map {
+            height: 250px;
+        }
+
+        .map iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background: #4b9aea;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: white;
+        }
+
+        .footer-section p {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design untuk Tablet */
+        @media (min-width: 600px) {
+            .gallery-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .news-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .potensi-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+        }
+
+        /* Responsive Design untuk Desktop */
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .desktop-menu {
+                display: block;
+            }
+            
+            .about-container {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .footer-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .news-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .potensi-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .gallery-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (max-width: 767px) {
+            .logo-text h1 {
+                font-size: 1.1rem; /* Ukuran lebih kecil untuk "Kelurahan Lakambau" */
+            }
+    
+            .logo-text p {
+                font-size: 0.65rem; /* Ukuran lebih kecil untuk "Kecamatan Batauga..." */
+            }
+            .contact-detail-1 p {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Responsive Design untuk Tablet (768px - 991px) */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .mobile-menu-btn {
+                display: block; /* Tetap tampilkan hamburger menu di tablet */
+            }
+    
+            .desktop-menu {
+                display: none; /* Sembunyikan menu desktop di tablet */
+            }
+    
+        /* Perbaikan ukuran font header untuk tablet */
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+    
+            .logo-text p {
+                font-size: 0.75rem;
+            }
+    
+        /* Menu mobile untuk tablet - sedikit lebih lebar */
+            .mobile-menu {
+                width: 50%;
+            }
+    
+            .about-container {
+                grid-template-columns: 1fr 1fr;
+            }
+    
+            .contact-container {
+                grid-template-columns: 1fr 1fr;
+            }
+    
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+    
+            .hero-content h2 {
+                font-size: 2.2rem;
+            }
+    
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+    
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+        @media (max-width: 480px) {
+        /* Perbaikan ukuran font header untuk layar sangat kecil */
+            .logo-text h1 {
+                font-size: 1rem;
+            }
+    
+            .logo-text p {
+                font-size: 0.6rem;
+            }
+    
+            .hero {
+                height: 60vh;
+                min-height: 350px;
+            }
+    
+            .hero-content h2 {
+                font-size: 1.3rem;
+            }
+    
+            .gallery-container {
+                grid-template-columns: 1fr;
+            }
+    
+            .gallery-item {
+                height: 150px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="logo.jpg" alt="Logo Desa kamelanta">
+                <div class="logo-text">
+                    <h1>Desa Kamelanta</h1>
+                    <p>Kecamatan Kapontori, Kabupaten Buton</p>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="desktop-menu">
+                <ul>
+                    <li><a href="#beranda">Beranda</a></li>
+                    <li><a href="#profil">Profil</a></li>
+                    <li><a href="#potensi">Potensi</a></li>
+                    <li><a href="#galeri">Galeri</a></li>
+                    <li><a href="#kontak">Lokasi</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Menu Mobile -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul>
+            <li><a href="#beranda">Beranda</a></li>
+            <li><a href="#profil">Profil</a></li>
+            <li><a href="#potensi">Potensi</a></li>
+            <li><a href="#galeri">Galeri</a></li>
+            <li><a href="#kontak">Lokasi</a></li>
+        </ul>
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="beranda">
+        <div class="hero-content">
+            <h2>Selamat Datang di Desa Kamelanta</h2>
+            <p>Tempat yang sejuk, sejahtera, dan penuh kebahagiaan</p>
+            <a href="#profil" class="btn">Jelajahi Desa Kami</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="profil">
+        <h2 class="section-title">Tentang Desa Kami</h2>
+        <div class="about-container">
+            <div class="about-content">
+                <h3>Desa Kamelanta</h3>
+                <p>Desa Kamelanta merupakan Pemekaran dari Desa Barangka pada tahun 2008 dan pada saat ini Desa Kamelanta sudah berdiri selama 17 tahun.</p>
+                <p>Desa Kamelanta berjarak sekitar 64 km dari ibu kota Kab.Buton dan Desa Kamelanta berada paling ujung barat berbatasan dengan Kota Bau-bau. </p>
+                <p>Desa Kamelanta terbagi menjadi 4 dusun yaitu:dusun Walinda,dusun Bagea,dusun Tobea, dan dusun Kaloba. </p>
+            </div>
+            <div class="about-image">
+                <img src="pemandangan_desa.jpg" alt="Pemandangan Desa Bahagia">
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Potensi Section -->
+    <section class="potensi" id="potensi">
+        <h2 class="section-title">Potensi Desa</h2>
+        <div class="potensi-container">
+            <div class="potensi-card">
+                <div class="potensi-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3>Perkebunan</h3>
+                <p>Desa Kamelanta memiliki banyak tanaman Buah di setiap rumah seperti Jambu Mete, Mangga, Jambu air,sayuran dan lainnya.</p>
+            </div>
+            <div class="potensi-card">
+                <div class="potensi-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h3>Sumber Daya Alam</h3>
+                <p>Berbagai sumber daya alam seperti ikan, kerang, dan hasil laut lainnya melimpah di wilayah ini.</p>
+            </div>
+            <div class="potensi-card">
+                <div class="potensi-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3>Kerajinan Tangan</h3>
+                <p>Desa Kamelanta ini memiliki potensi untuk membuat tapis beras dan saringan jagung tumbuk.</p>
+            </div>
+            <div class="potensi-card">
+                <div class="potensi-icon">
+                    <i class="fas fa-mountain"></i>
+                </div>
+                <h3>Wisata Alam</h3>
+                <p>Desa kami memiliki pemandangan indah, yaitu: pantai Walinda,Goa dan Padang Savana.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="galeri">
+        <h2 class="section-title">Galeri Desa</h2>
+        <div class="gallery-container">
+            <div class="gallery-item">
+                <img src="senam.jpg" alt="Kegiatan Desa">
+            </div>
+            <div class="gallery-item">
+                <img src="pemandangan.jpg" alt="Pemandangan Desa">
+            </div>
+            <div class="gallery-item">
+                <img src="bakar_kebun.jpg" alt="Pertanian">
+            </div>
+            <div class="gallery-item">
+                <img src="pantai.jpg" alt="Wisata">
+            </div>
+            <div class="gallery-item">
+                <img src="kerajinan.jpg" alt="Kesenian">
+            </div>
+            <div class="gallery-item">
+                <img src="pengajian.jpg" alt="Kegiatan Warga">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="kontak">
+        <h2 class="section-title">Lokasi</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Informasi Lokasi</h3>
+                <div class="contact-detail">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <p>Desa Kamelanta, Kec. Kapontori, Kab. Buton</p>
+                </div>
+                <div class="contact-detail-1">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <p>Batas Wilayah: <br>
+                     - Sebelah Utara yaitu Desa Barangka <br>
+                     - Sebelah Selatan yaitu kelurahan Tampuna Kota Bau-bau <br>
+                     - Sebelah Barat yaitu Selat Buton <br>
+                     - Sebelah Timur yaitu Desa barangka <br>
+                </p>
+                </div>
+            </div>
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63561.816576816134!2d122.68816929877858!3d-5.322821131755543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2da3f3577ff1e62d%3A0xbc1086f6aa73cca2!2sKamelanta%2C%20Kec.%20Kapontori%2C%20Kabupaten%20Buton%2C%20Sulawesi%20Tenggara!5e0!3m2!1sid!2sid!4v1760250108907!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Desa Kamelanta</h3>
+                <p>Tempat yang sejuk, sejahtera, dan penuh kebahagiaan. Menjadi tempat yang unggul dalam berbagai bidang.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Tautan Cepat</h3>
+                <ul>
+                    <li><a href="#beranda">Beranda</a></li>
+                    <li><a href="#profil">Profil Desa</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Tautan Cepat</h3>
+                <ul>
+                    <li><a href="#potensi">Potensi</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Tautan Cepat</h3>
+                <ul>
+                    <li><a href="#galeri">Galeri</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Ovan Gevian. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Script untuk menu mobile
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenuBtn = document.querySelector('.close-menu');
+        const overlay = document.getElementById('overlay');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenuBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+        
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Menutup menu saat mengklik link
+        const menuLinks = document.querySelectorAll('.mobile-menu a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    </script>
+</body>
+</html>
